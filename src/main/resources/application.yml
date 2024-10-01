@@ -9,14 +9,25 @@ logging.level:
     io.opentelemetry.exporter.internal.grpc: DEBUG
 
 
+
 otel:
+    global:
+        enabled: true
+    propagation.enabled: true
+    propagators: b3,tracecontext
+    autoconfigure:
+        enabled: true
+    exporters:
+        otlp: true
+    instrumentation:
+        micrometer.enabled: true
+        common.default-enabled: true
     sdk.enabled: true
     service.name: ${spring.application.name}
-    traces:
-        exporter: otlp
-        sampler: alwaysonsampler
+    metrics.exporter: none
+    logs.exporter: none
+    traces.exporter: otlp
     exporter.otlp:
         protocol: grpc
         endpoint: https://jaeger-grpc.apps.dhaka.cf-app.com
-    experimental.exporter.otlp.retry.enabled: true
     resource.attributes.service.name: ${spring.application.name}
