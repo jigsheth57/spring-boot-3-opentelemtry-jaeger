@@ -1,0 +1,23 @@
+---
+applications:
+  - name: jaeger
+    env:
+      COLLECTOR_OTLP_ENABLED: 'true'
+    lifecycle: docker
+    docker:
+      image: jaegertracing/all-in-one:latest
+    routes:
+    - route: jaeger.apps.dhaka.cf-app.com
+      protocol: http1
+    - route: jaeger.apps.internal
+      protocol: http2
+    - route: jaeger-grpc.apps.dhaka.cf-app.com
+      protocol: http2
+    processes:
+    - type: web
+      instances: 1
+      memory: 1024M
+      disk_quota: 1024M
+      log-rate-limit-per-second: 16K
+      health-check-type: process
+      readiness-health-check-type: process

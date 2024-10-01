@@ -27,7 +27,7 @@ public class Controller {
     public ResponseEntity<String> path1() {
         logger.info("Incoming request at {} for request /path1 ", applicationName);
         doNothingButSleepForSomeTime();
-        String response = restTemplate.getForObject("http://localhost:8090/hello/path2", String.class);
+        String response = restTemplate.getForObject("http://localhost:8080/hello/path2", String.class);
         doNothingButSleepForSomeTime();
         return ResponseEntity.ok("response from /path1 + " + response);
     }

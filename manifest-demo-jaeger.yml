@@ -1,0 +1,19 @@
+---
+applications:
+  - name: demo-jaeger
+    env:
+      BP_SPRING_CLOUD_BINDINGS_DISABLED: 'true'
+    lifecycle: docker
+    docker:
+      image: jigsheth57/demo-jaeger:latest
+    routes:
+    - route: demo-jaeger.apps.dhaka.cf-app.com
+      protocol: http1
+    processes:
+    - type: web
+      instances: 1
+      memory: 1024M
+      disk_quota: 1024M
+      log-rate-limit-per-second: 16K
+      health-check-type: process
+      readiness-health-check-type: process
