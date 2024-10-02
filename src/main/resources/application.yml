@@ -2,22 +2,22 @@ spring.application.name: sample-spring-boot
 
 management:
     endpoints.web.exposure.include: "*"
-    tracing:
-        enabled: true
-        baggage.enabled: true
-        propagation.type: [b3, b3_multi, w3c]
-        sampling.probability: 1.0
-    otlp.tracing:
-        compression: none
-        endpoint: https://jaeger-grpc.apps.dhaka.cf-app.com/v1/traces
-
+    # tracing:
+    #     enabled: true
+    #     baggage.enabled: true
+    #     propagation.type: [b3, b3_multi, w3c]
+    #     sampling.probability: 1.0
+    # otlp.tracing:
+    #     compression: none
+    #     endpoint: https://jaeger-grpc.apps.dhaka.cf-app.com
 
 logging.level:
-    ROOT: DEBUG
-    io.opentelemetry.exporter.internal.grpc: DEBUG
+    ROOT: INFO
+    # io.opentelemetry.exporter.internal.grpc: DEBUG
 
 
 # otel:
+#     instrumentation.runtime-telemetry-java17.enable-all: true
 #     sdk.disabled: false
 #     resource.attributes:
 #         service.name: ${spring.application.name}
@@ -31,4 +31,4 @@ logging.level:
 #     logs.exporter: none
 #     exporter.otlp.traces:
 #         endpoint: https://jaeger-grpc.apps.dhaka.cf-app.com
-#         protocol: grpc
+#         protocol: http/protobuf

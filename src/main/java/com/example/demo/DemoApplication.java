@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-import io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter;
-
 @SpringBootApplication
 @Configuration
 public class DemoApplication {
@@ -54,11 +52,11 @@ public class DemoApplication {
 
     return openTelemetry;
   }
-     */
-  @Bean
+     @Bean
   public OtlpHttpSpanExporter otlpHttpSpanExporter(@Value("${management.otlp.tracing.endpoint}")
   String url) {
     return OtlpHttpSpanExporter.builder().setEndpoint(url).build();
   // return OtlpGrpcSpanExporter.builder().setEndpoint(url).build();
   }
-}
+     */
+  }
