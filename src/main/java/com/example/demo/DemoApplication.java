@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import java.util.concurrent.TimeUnit;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,12 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-import io.opentelemetry.api.OpenTelemetry;
-import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
-import io.opentelemetry.sdk.OpenTelemetrySdk;
-import io.opentelemetry.sdk.resources.Resource;
-import io.opentelemetry.sdk.trace.SdkTracerProvider;
-import io.opentelemetry.sdk.trace.export.BatchSpanProcessor;
+import io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter;
 
 @SpringBootApplication
 @Configuration
@@ -33,6 +26,7 @@ public class DemoApplication {
     return builder.build();
   }
 
+  /*
   // Init OpenTelemetry
   @Bean
   public OpenTelemetry initOpenTelemetry(@Value("${otel.exporter.otlp.endpoint}") String jaegerEndpoint) {
@@ -60,9 +54,11 @@ public class DemoApplication {
 
     return openTelemetry;
   }
-  // @Bean
-  // public OtlpGrpcSpanExporter otlpHttpSpanExporter(@Value("${otel.exporter.otlp.endpoint}")
-  // String url) {
+     */
+  @Bean
+  public OtlpHttpSpanExporter otlpHttpSpanExporter(@Value("${management.otlp.tracing.endpoint}")
+  String url) {
+    return OtlpHttpSpanExporter.builder().setEndpoint(url).build();
   // return OtlpGrpcSpanExporter.builder().setEndpoint(url).build();
-  // }
+  }
 }

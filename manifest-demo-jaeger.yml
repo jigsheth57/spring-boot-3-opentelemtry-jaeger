@@ -1,13 +1,11 @@
 ---
 applications:
-  - name: demo-jaeger
-    env:
-      BP_SPRING_CLOUD_BINDINGS_DISABLED: 'true'
+  - name: otlp-demo-jaeger
     lifecycle: docker
     docker:
-      image: jigsheth57/demo-jaeger:latest
+      image: jigsheth57/opentelemtry-jaeger-demo:latest
     routes:
-    - route: demo-jaeger.apps.dhaka.cf-app.com
+    - route: otlp-demo-jaeger.apps.dhaka.cf-app.com
       protocol: http1
     processes:
     - type: web

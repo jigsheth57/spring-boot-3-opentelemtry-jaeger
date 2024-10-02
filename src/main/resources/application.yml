@@ -2,32 +2,33 @@ spring.application.name: sample-spring-boot
 
 management:
     endpoints.web.exposure.include: "*"
-    tracing.sampling.probability: 1.0
+    tracing:
+        enabled: true
+        baggage.enabled: true
+        propagation.type: [b3, b3_multi, w3c]
+        sampling.probability: 1.0
+    otlp.tracing:
+        compression: none
+        endpoint: https://jaeger-grpc.apps.dhaka.cf-app.com/v1/traces
+
 
 logging.level:
     ROOT: DEBUG
     io.opentelemetry.exporter.internal.grpc: DEBUG
 
 
-
-otel:
-    global:
-        enabled: true
-    propagation.enabled: true
-    propagators: b3,tracecontext
-    autoconfigure:
-        enabled: true
-    exporters:
-        otlp: true
-    instrumentation:
-        micrometer.enabled: true
-        common.default-enabled: true
-    sdk.enabled: true
-    service.name: ${spring.application.name}
-    metrics.exporter: none
-    logs.exporter: none
-    traces.exporter: otlp
-    exporter.otlp:
-        protocol: grpc
-        endpoint: https://jaeger-grpc.apps.dhaka.cf-app.com
-    resource.attributes.service.name: ${spring.application.name}
+# otel:
+#     sdk.disabled: false
+#     resource.attributes:
+#         service.name: ${spring.application.name}
+#     log.level: DEBUG
+#     traces.sampler: parentbased_always_on
+#     bsp:
+#         schedule.delay: 1000
+#         export.timeout: 15000
+#     traces.exporter: otlp
+#     metrics.exporter: none
+#     logs.exporter: none
+#     exporter.otlp.traces:
+#         endpoint: https://jaeger-grpc.apps.dhaka.cf-app.com
+#         protocol: grpc
